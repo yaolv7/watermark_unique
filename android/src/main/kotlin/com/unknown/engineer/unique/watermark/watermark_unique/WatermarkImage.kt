@@ -142,6 +142,8 @@ class WatermarkImage : MethodChannel.MethodCallHandler {
             style = Paint.Style.FILL
             isAntiAlias = true
         }
+        textPaint.setShadowLayer(5f, 3f, 3f, Color.BLACK)
+
         // 行间距设置
 //        textPaint.setLetterSpacing(0.1f);
 
