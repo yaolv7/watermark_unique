@@ -9,6 +9,11 @@ import java.util.*
 import android.graphics.*
 import java.io.File
 import java.io.FileOutputStream
+import android.text.StaticLayout
+import android.text.TextPaint
+import android.text.Layout
+import kotlin.math.max
+
 class WatermarkImage : MethodChannel.MethodCallHandler {
     private var context: Context? = null
     companion object {
@@ -101,6 +106,7 @@ class WatermarkImage : MethodChannel.MethodCallHandler {
         }
     }
 
+    /// 写死了位置 在左下角自己用
     private fun addTextWatermark(
         text: String,
         filePath: String,
@@ -130,73 +136,51 @@ class WatermarkImage : MethodChannel.MethodCallHandler {
             Bitmap.CompressFormat.PNG
         }
 
-        val textPaint = Paint().apply {
+        val textPaint = TextPaint().apply {
             color = colorWatermark
             textSize = textWatermarkSize
             style = Paint.Style.FILL
             isAntiAlias = true
         }
+        // 行间距设置
+//        textPaint.setLetterSpacing(0.1f);
 
         val maxTextWidth = mutableBitmap.width - (backgroundTextPaddingLeft ?: 0F) - (backgroundTextPaddingRight ?: 0F)
 
-        fun wrapText(text: String, maxWidth: Float): List<String> {
-            val wrappedLines = mutableListOf<String>()
-            val paragraphs = text.split("\n")
+        val layout: StaticLayout = StaticLayout.Builder.obtain(text,0,text.length,textPaint,maxTextWidth.toInt())
+            .setAlignment(Layout.Alignment.ALIGN_NORMAL) // 左对齐
+            .setLineSpacing(0f, 1.0f) // 默认行距
+            .setIncludePad(true)
+            .build()
 
-            for (paragraph in paragraphs) {
-                val words = paragraph.split(" ")
-                var line = ""
-
-                for (word in words) {
-                    val testLine = if (line.isEmpty()) word else "$line $word"
-                    val textWidth = (textPaint.measureText(testLine) + 50)
-
-                    if (textWidth > maxWidth) {
-                        if (line.isNotEmpty()) {
-                            wrappedLines.add(line)
-                        }
-                        line = word
-                    } else {
-                        line = testLine
-                    }
-                }
-
-                if (line.isNotEmpty()) {
-                    wrappedLines.add(line)
-                }
-
-                if (paragraph != paragraphs.last()) {
-                    wrappedLines.add("")
-                }
-            }
-
-            return wrappedLines
-        }
-
-        val lines = wrapText(text, maxTextWidth)
-        val lineHeight = textPaint.descent() - textPaint.ascent()
-        val baseY = y
 
         backgroundTextColor?.let { backgroundColor ->
+            // 获取实际内容宽度（所有行中的最大宽度）
+            var contentWidth = 0f
+            for (i in 0 until layout.lineCount) {
+                contentWidth = max(
+                    contentWidth.toDouble(),
+                    layout.getLineWidth(i).toInt().toDouble()
+                ).toFloat()
+            }
+
             val backgroundPaint = Paint().apply {
                 this.color = backgroundColor
                 style = Paint.Style.FILL
             }
-            val textWidth = lines.maxOfOrNull { textPaint.measureText(it) } ?: 0f
             val rect = RectF(
-                x - (backgroundTextPaddingLeft ?: 0F),
-                baseY + textPaint.ascent() - (backgroundTextPaddingTop ?: 0F),
-                x + textWidth + (backgroundTextPaddingRight ?: 0F),
-                baseY + (lineHeight * lines.size) + (backgroundTextPaddingBottom ?: 0F)
+                0f,
+                (canvas.height - layout.height).toFloat(),
+                contentWidth,
+                canvas.height.toFloat()
             )
             canvas.drawRect(rect, backgroundPaint)
         }
 
-        var currentY = baseY
-        for (line in lines) {
-            canvas.drawText(line, x, currentY, textPaint)
-            currentY += lineHeight
-        }
+        canvas.save()
+        canvas.translate(10f , (canvas.height - layout.height).toFloat());
+        layout.draw(canvas)
+        canvas.restore()
 
         val file = File(filePath)
 

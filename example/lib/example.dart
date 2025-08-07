@@ -27,117 +27,24 @@ class _ExampleWidgetState extends State<ExampleWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 24,
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed: _takeImage,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    elevation: 4,
-                  ),
-                  child: const Text(
-                    'Take image',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 16,
-                    left: 16,
-                    right: 16,
-                    bottom: 16,
-                  ),
-                  child: Text(
-                    'Image path: ${photo?.path}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _takeWatermarkImage,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    elevation: 4,
-                  ),
-                  child: const Text(
-                    'Take watermark image',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 16,
-                    left: 16,
-                    right: 16,
-                    bottom: 16,
-                  ),
-                  child: Text(
-                    'Watermark image path: ${watermark?.path}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _addImageTextWatermark,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    elevation: 4,
-                  ),
-                  child: const Text(
-                    'Add text watermark to photo',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _addTextWatermarkUint8List,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    elevation: 4,
-                  ),
-                  child: const Text(
-                    'Add text watermark to photo Uint8List',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: ElevatedButton(
-                    onPressed: _addWatermarkImageToPhoto,
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.only(
+            top: 24,
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: _takeImage,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       elevation: 4,
                     ),
                     child: const Text(
-                      'Add watermark image to photo',
+                      'Take image',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -145,17 +52,30 @@ class _ExampleWidgetState extends State<ExampleWidget> {
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: ElevatedButton(
-                    onPressed: _addImageWatermarkUint8List,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 16,
+                      left: 16,
+                      right: 16,
+                      bottom: 16,
+                    ),
+                    child: Text(
+                      'Image path: ${photo?.path}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: _takeWatermarkImage,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       elevation: 4,
                     ),
                     child: const Text(
-                      'Add watermark image to photo Uint8List',
+                      'Take watermark image',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -163,18 +83,100 @@ class _ExampleWidgetState extends State<ExampleWidget> {
                       ),
                     ),
                   ),
-                ),
-                if (finalFile != null)
-                  Image.file(
-                    finalFile!,
-                    width: 400,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 16,
+                      left: 16,
+                      right: 16,
+                      bottom: 16,
+                    ),
+                    child: Text(
+                      'Watermark image path: ${watermark?.path}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
-                if (finalUint8List != null)
-                  Image.memory(
-                    finalUint8List!,
-                    width: 400,
+                  ElevatedButton(
+                    onPressed: _addImageTextWatermark,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      elevation: 4,
+                    ),
+                    child: const Text(
+                      'Add text watermark to photo',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-              ],
+                  ElevatedButton(
+                    onPressed: _addTextWatermarkUint8List,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      elevation: 4,
+                    ),
+                    child: const Text(
+                      'Add text watermark to photo Uint8List',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: ElevatedButton(
+                      onPressed: _addWatermarkImageToPhoto,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        elevation: 4,
+                      ),
+                      child: const Text(
+                        'Add watermark image to photo',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: ElevatedButton(
+                      onPressed: _addImageWatermarkUint8List,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        elevation: 4,
+                      ),
+                      child: const Text(
+                        'Add watermark image to photo Uint8List',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  if (finalFile != null)
+                    Image.file(
+                      finalFile!,
+                      width: 400,
+                    ),
+                  if (finalUint8List != null)
+                    Image.memory(
+                      finalUint8List!,
+                      width: 400,
+                    ),
+                ],
+              ),
             ),
           ),
         ),
@@ -221,14 +223,17 @@ class _ExampleWidgetState extends State<ExampleWidget> {
 
     final image = await _watermarkPlugin.addTextWatermark(
       filePath: photo!.path,
-      text: 'Test watermark text Test watermark text Test watermark 7',
+      text:
+          '123.456789 10.98765432\n滚动角：178°，俯仰角：290°，方位角：234°\n2025年12月31日23时19分38秒',
+      // text: '123.456789 10.98765432',
       x: 100,
       y: 500,
-      textSize: 50,
+      textSize: 100,
       color: Colors.black,
-      backgroundTextColor: Colors.orange,
+      backgroundTextColor: Colors.orange.withAlpha(100),
       quality: 50,
-      isNeedRotateToPortrait: true, //  ONLY ANDROID
+      isNeedRotateToPortrait: true,
+      //  ONLY ANDROID
       backgroundTextPaddingBottom: 100,
       backgroundTextPaddingLeft: 100,
       backgroundTextPaddingRight: 300,
@@ -244,7 +249,6 @@ class _ExampleWidgetState extends State<ExampleWidget> {
     final ui.Image imageEdited2 = await decodeImageFromList(editedImage2);
 
     debugPrint('width2: ${imageEdited2.width} height2: ${imageEdited2.width}');
-
   }
 
   Future<void> _addWatermarkImageToPhoto() async {
@@ -268,7 +272,8 @@ class _ExampleWidgetState extends State<ExampleWidget> {
   Future<void> _addTextWatermarkUint8List() async {
     final image = await _watermarkPlugin.addTextWatermarkUint8List(
       filePath: photoUint8List!,
-      text: 'Test watermark text\nTest watermark text Test watermark 7 Test watermark text Test watermark 1 Test watermark text Test watermark 2 Test watermark text Test watermark 3 Test watermark text Test watermark\n77777',
+      text:
+          'Test watermark text\nTest watermark text Test watermark 7 Test watermark text Test watermark 1 Test watermark text Test watermark 2 Test watermark text Test watermark 3 Test watermark text Test watermark\n77777',
       x: 50,
       y: 100,
       textSize: 24,
