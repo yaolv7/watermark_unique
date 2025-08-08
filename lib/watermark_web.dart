@@ -25,6 +25,7 @@ class WatermarkWeb extends WatermarkBridge {
     int y,
     int textSize,
     bool isNeedRotateToPortrait,
+    int rotateAngle,
     Color color,
     Color? backgroundTextColor,
     int? backgroundTextPaddingTop,

@@ -22,6 +22,7 @@ class WatermarkManager extends WatermarkBridge {
     int textSize,
     Color color,
     bool isNeedRotateToPortrait,
+    int rotateAngle,
     Color? backgroundTextColor,
     int quality,
     int? backgroundTextPaddingTop,
@@ -47,6 +48,7 @@ class WatermarkManager extends WatermarkBridge {
         'backgroundTextPaddingRight': backgroundTextPaddingRight,
         'isNeedRotate': isNeedRotateToPortrait,
         'imageFormat': imageFormat.name,
+        'rotateAngle': rotateAngle,
       },
     );
     return result;
@@ -88,6 +90,7 @@ class WatermarkManager extends WatermarkBridge {
     int y,
     int textSize,
     bool isNeedRotateToPortrait,
+    int rotateAngle,
     Color color,
     Color? backgroundTextColor,
     int? backgroundTextPaddingTop,
@@ -112,6 +115,7 @@ class WatermarkManager extends WatermarkBridge {
         'backgroundTextPaddingRight': backgroundTextPaddingRight,
         'isNeedRotate': isNeedRotateToPortrait,
         'imageFormat': ImageFormat.png.name,
+        'rotateAngle': rotateAngle,
       },
     );
     if (result != null) {

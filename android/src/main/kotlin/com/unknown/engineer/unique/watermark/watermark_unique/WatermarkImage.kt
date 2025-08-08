@@ -51,6 +51,7 @@ class WatermarkImage : MethodChannel.MethodCallHandler {
                 val backgroundTextPaddingRight =
                     call.argument<Int?>("backgroundTextPaddingRight")?.toFloat()
                 val isNeedRotate = call.argument<Boolean?>("isNeedRotate") ?: true
+                val rotateAngle = call.argument<Int?>("rotateAngle") ?: 0
 
                 if (text != null && filePath != null && x != null && y != null && textSize != null && color != null && quality != null && imageFormat != null) {
                     addTextWatermark(
@@ -68,6 +69,7 @@ class WatermarkImage : MethodChannel.MethodCallHandler {
                         backgroundTextPaddingRight,
                         imageFormat!!,
                         isNeedRotate,
+                        rotateAngle,
                         result
                     )
                 } else {
@@ -122,10 +124,14 @@ class WatermarkImage : MethodChannel.MethodCallHandler {
         backgroundTextPaddingRight: Float?,
         imageFormat: String,
         isNeedRotate: Boolean,
+        rotateAngle: Int,
         result: MethodChannel.Result
     ) {
         var bitmap = BitmapFactory.decodeFile(filePath)
-        if(isNeedRotate) {
+        if(rotateAngle != 0){
+            // 优先使用rotateAngle角度
+            bitmap = rotateImage(bitmap, rotateAngle.toFloat())
+        } else if(isNeedRotate) {
             bitmap = rotateImageIfRequired(bitmap, filePath)
         }
         val mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)

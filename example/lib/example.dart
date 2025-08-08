@@ -215,6 +215,7 @@ class _ExampleWidgetState extends State<ExampleWidget> {
     return;
   }
 
+  var rotateAngle = 0;
   Future<void> _addImageTextWatermark() async {
     final editedImage = await photo!.readAsBytes();
 
@@ -232,6 +233,7 @@ class _ExampleWidgetState extends State<ExampleWidget> {
       color: Colors.red,
       backgroundTextColor: Colors.orange.withAlpha(100),
       quality: 50,
+      rotateAngle: rotateAngle += 90,
       isNeedRotateToPortrait: true,
       //  ONLY ANDROID
       backgroundTextPaddingBottom: 100,
