@@ -11,8 +11,8 @@ class WatermarkUnique {
   Future<String?> addTextWatermark({
     required String filePath,
     required String text,
-    required int x,
-    required int y,
+     int x = 0,
+     int y = 0,
     required int textSize,
     required Color color,
     bool isNeedRotateToPortrait = false,

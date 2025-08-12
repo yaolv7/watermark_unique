@@ -227,19 +227,14 @@ class _ExampleWidgetState extends State<ExampleWidget> {
       text:
           '123.456789 10.98765432\n滚动角：178°，俯仰角：290°，方位角：234°\n2025年12月31日23时19分38秒',
       // text: '123.456789 10.98765432',
-      x: 100,
-      y: 500,
+      // x: 100,
+      // y: 500,
       textSize: 50,
       color: Colors.red,
-      backgroundTextColor: Colors.orange.withAlpha(100),
       quality: 50,
       rotateAngle: rotateAngle += 90,
       isNeedRotateToPortrait: true,
       //  ONLY ANDROID
-      backgroundTextPaddingBottom: 100,
-      backgroundTextPaddingLeft: 100,
-      backgroundTextPaddingRight: 300,
-      backgroundTextPaddingTop: 500,
       imageFormat: ImageFormat.jpeg,
     );
     if (image != null) {
